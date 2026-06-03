@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Welcome, {{ current_user.username }}! 👋</h2>
+<div class="card mt-4">
+    <div class="card-header bg-primary text-white">
+        <h4>Book New Appointment</h4>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label>Doctor Name</label>
+                <input type="text" name="doctor_name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Date</label>
+                <input type="date" name="date" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Reason</label>
+                <input type="text" name="reason" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Book Appointment</button>
+        </form>
+    </div>
+</div>
+<h4 class="mt-4">Your Appointments</h4>
+<table class="table table-bordered mt-2">
+    <thead class="table-primary">
+        <tr>
+            <th>Doctor</th>
+            <th>Date</th>
+            <th>Reason</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for a in appointments %}
+        <tr>
+            <td>{{ a.doctor_name }}</td>
+            <td>{{ a.date }}</td>
+            <td>{{ a.reason }}</td>
+            <td>{{ a.status }}</td>
+            <td><a href="/delete/{{ a.id }}" class="btn btn-danger btn-sm">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
